@@ -1,10 +1,20 @@
 import java.util.*;
-class Pro1{
+class Pro8{
 	
 	void fun(int arr[],int size){
+		int secMin=0;
+		int min=Integer.MAX_VALUE;
 		for(int i=0;i<size;i++){
+			if(arr[i]< min){
+				secMin=min;
+				min=arr[i];
+			}
+			else if(arr[i]<secMin && arr[i]!=min)
+				secMin=arr[i];
 
 		}
+		System.out.println("min: "+min);
+		System.out.println("Sec_min: "+secMin);
 	}
 
 	public static void main(String[]args){
@@ -19,7 +29,7 @@ class Pro1{
 			System.out.print(arr[i]+"\t");
 		}
 		System.out.println("");
-		Pro1 obj=new Pro1();
+		Pro8 obj=new Pro8();
 		obj.fun(arr,size);
 	}
 }

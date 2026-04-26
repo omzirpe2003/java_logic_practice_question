@@ -1,11 +1,7 @@
-import java.util.*;
-class Pro1{
-	
-	void fun(int arr[],int size){
-		for(int i=0;i<size;i++){
 
-		}
-	}
+import java.util.*;
+class Pro9{
+	
 
 	public static void main(String[]args){
 		Scanner sc=new Scanner(System.in);
@@ -13,13 +9,12 @@ class Pro1{
 		int size=sc.nextInt();
 		int arr[]=new int[size];
 		for(int i=0;i<size;i++){
-			arr[i]=sc.nextInt();
+			arr[i]=sc.nextInt() + 1;
 		}
 		for(int i=0;i<size;i++){
 			System.out.print(arr[i]+"\t");
 		}
 		System.out.println("");
-		Pro1 obj=new Pro1();
-		obj.fun(arr,size);
+		Pro9 obj=new Pro9();
 	}
 }

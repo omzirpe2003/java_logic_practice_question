@@ -3,25 +3,23 @@
  */
 
 import java.util.*;
-class Pro6{
-	
+class Pro6{	
 	void fun(int arr[],int size){
 		for(int i=0;i<size;i++){
 			int count=0;
-			for(int j=1;j<arr[i];j++){
+			for(int j=1;j<=arr[i];j++){
 				if(arr[i]%j==0){
 					count++;
 				}
 
 			}
-			System.out.println("Count: "+count+ " Index: "+i);
-			if(count==1)
+			
+			if(count==2){
 				System.out.println("Index: "+i);
 				break;
+			}
 		}
 	}
-	
-	v
 	public static void main(String[]args){
 		Scanner sc=new Scanner(System.in);
 		System.out.print("Enter Size of array: ");

@@ -1,10 +1,25 @@
+/*
+ * FInd Composite number
+ *
+ */
+
 import java.util.*;
-class Pro1{
+class Pro7{
 	
 	void fun(int arr[],int size){
+		System.out.print("Composite number are: ");
 		for(int i=0;i<size;i++){
-
+			int count=0;
+			for(int j=1;j<=arr[i];j++){
+				if(arr[i]%j==0){
+					count++;
+				}
+			}
+			if(count>2){
+				System.out.print(arr[i]+"\t");
+			}
 		}
+		System.out.println("");
 	}
 
 	public static void main(String[]args){
@@ -19,7 +34,7 @@ class Pro1{
 			System.out.print(arr[i]+"\t");
 		}
 		System.out.println("");
-		Pro1 obj=new Pro1();
+		Pro7 obj=new Pro7();
 		obj.fun(arr,size);
 	}
 }
