@@ -1,39 +1,40 @@
-
-
-
 /*
  *array is desinding order or not
  */
 
 import java.util.*;
-class Pro1{
+class Pro9{
 	void fun(int arr[],int size){
-		boolean isDesc=true;
-		for(int i=0;i<size-1;i++){
-			if(arr[i+1]>arr[i]){
-				isDesc=false;
-				break;
+		int count=0;
+		for(int i=0;i<size;i++){
+			int temp=arr[i];
+			int mach=0;
+			while(temp!=0){
+				int temp2=temp%10;
+				mach=mach*10 + temp2;
+
+				temp/=10;
 			}
+			if(mach==arr[i])
+				count++;
 		}
-		if(isDesc){
-			System.out.println("Is In descinding Order");
-		}else{
-			System.out.println("is Not in Descinding order");
-		}
+		System.out.println("Count of Palindrom: "+count);
+	
 	}
 	public static void main(String[]args){
 		Scanner sc=new Scanner(System.in);
 		System.out.print("Enter Size Of array: ");
 		int size =sc.nextInt();
 		int arr[]=new int[size];
-		Pro1 obj=new Pro1();
+		Pro9 obj=new Pro9();
 		for(int i=0;i<size;i++){
 			arr[i]=sc.nextInt();
 			//System.out.print(arr[i]+"\t");
 		}
 		for(int i=0;i<size;i++){
-			System.out.println(arr[i]+"\t");
+			System.out.print(arr[i]+"\t");
 		}
+		System.out.println("");
 		obj.fun(arr,size);
 	}
 }

@@ -1,39 +1,39 @@
 
-
-
 /*
- *array is desinding order or not
+ *given array conrains elemeent multiple of user given i/p  int value if yes then print index
  */
 
 import java.util.*;
-class Pro1{
-	void fun(int arr[],int size){
-		boolean isDesc=true;
-		for(int i=0;i<size-1;i++){
-			if(arr[i+1]>arr[i]){
-				isDesc=false;
-				break;
+class Pro6{
+	void fun(int arr[],int size,int spc){
+		boolean isFound=false;
+		for(int i=0;i<size;i++){
+			if(arr[i]%spc==0){
+				System.out.println("An Element multiple of "+spc+" found at index: "+i);
+				isFound=true;
 			}
 		}
-		if(isDesc){
-			System.out.println("Is In descinding Order");
-		}else{
-			System.out.println("is Not in Descinding order");
-		}
+	
+		if(!isFound)
+			System.out.println("Element Not found: "+spc);
+		
 	}
 	public static void main(String[]args){
 		Scanner sc=new Scanner(System.in);
 		System.out.print("Enter Size Of array: ");
 		int size =sc.nextInt();
 		int arr[]=new int[size];
-		Pro1 obj=new Pro1();
+		Pro6 obj=new Pro6();
 		for(int i=0;i<size;i++){
 			arr[i]=sc.nextInt();
 			//System.out.print(arr[i]+"\t");
 		}
 		for(int i=0;i<size;i++){
-			System.out.println(arr[i]+"\t");
+			System.out.print(arr[i]+"\t");
 		}
-		obj.fun(arr,size);
+		System.out.println("");
+		System.out.print("Enter Spc number: ");
+		int spc=sc.nextInt();
+		obj.fun(arr,size,spc);
 	}
 }
