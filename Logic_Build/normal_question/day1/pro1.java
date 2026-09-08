@@ -1,4 +1,8 @@
 package day1;
+
+import java.util.HashMap;
+import java.util.Map;
+
 class Demo{
     void swap(int x,int y){
         System.out.println("X:- "+x);
@@ -190,6 +194,84 @@ class Demo{
             System.out.println(temp[i]);
         }
     }
+    
+    void frequencyOfArray(int arr[]){
+        boolean isRepet[]=new boolean[arr.length];
+
+        for(int i=0;i<arr.length;i++){
+            if(isRepet[i]){
+                continue;
+            }
+            int count=1;
+            for(int j=i+1;j<arr.length;j++){
+                if(arr[i]==arr[j]){
+                    count++;
+                    isRepet[j]=true;
+                }
+            }
+            System.out.println(arr[i]+" Frequ:-"+count);
+        }
+    }
+    
+    void frequencyOfArrayOpti(int arr[]){
+        HashMap<Integer,Integer> map=new HashMap<>();
+        for(int i=0;i<arr.length;i++){
+            if(map.containsKey(arr[i])){
+                map.put(arr[i], map.get(arr[i])+1);
+            }else{
+                map.put(arr[i], 1);
+            }
+        }
+
+        for(Map.Entry<Integer, Integer> entory :map.entrySet()){
+            System.out.println(entory.getKey()+" Frq "+entory.getValue());
+        }
+    }
+    
+
+    void mostRepetedNumber(int arr[]){
+        boolean isRead[]=new boolean[arr.length];
+        int mapCount=0;
+        int ele=0;
+        for(int i=0;i<arr.length;i++){
+            int count=1;
+            if(isRead[i])
+                continue;
+            for(int j=i+1;j<arr.length;j++){
+                if(arr[i]==arr[j]){
+                    count++;
+                    isRead[j]=true;
+                }
+            }
+            if(count>mapCount){
+                mapCount=count;
+                ele=arr[i];
+            }
+        }
+        System.out.println("Ele: "+ele+ " Count: "+mapCount);
+    }
+    
+    void mostRepetedNumberOpt(int arr[]){
+        HashMap<Integer,Integer> map=new HashMap<>();
+        for(int i=0;i<arr.length;i++){
+            if(map.containsKey(arr[i])){
+                map.put(arr[i], map.get(arr[i])+1);
+            }else{
+                map.put(arr[i], 1);
+            }
+        }
+        int maxCount=0;
+        int ele=0;
+        for(Map.Entry<Integer,Integer> enty : map.entrySet()){
+            if(enty.getValue()>maxCount){
+                maxCount=enty.getValue();
+                ele=enty.getKey();
+            }
+        }
+        System.out.println(ele+" fre:- "+maxCount);
+    }
+
+
     public static void main(String[] args) {
         Demo oj=new Demo();
         //oj.swap(10, 30);
@@ -206,13 +288,15 @@ class Demo{
         // System.out.println("Check Small Number in array:- "+(oj.small(arr)));
         // System.out.println("Sum of array is "+(oj.sumAndAverageOfArray(arr)+ " And Avrg is :- "+(oj.sumAndAverageOfArray(arr)/arr.length)));
         // oj.countEvenAndOddNumber(arr);
-        int arr[]={10, 20, 20, 30, 40, 40, 50};
         // oj.reverseArr(arr);
         // System.out.println("SecLarge: " +oj.secLatge(arr));
         // System.out.println("SecSmall: " +oj.secSmall(arr));
-        //oj.duplicateEle(arr);
-        oj.removeDouplicate(arr);
-
+        // oj.duplicateEle(arr);
+        // oj.removeDouplicate(arr);
+        // oj.frequencyOfArray(arr);
+        int arr[]={2, 5, 2, 8, 5, 2, 9, 5};
+        oj.mostRepetedNumber(arr);
+        oj.mostRepetedNumberOpt(arr);
 
     }
 
