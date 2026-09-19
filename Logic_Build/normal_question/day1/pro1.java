@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 class Demo{
+
     void swap(int x,int y){
         System.out.println("X:- "+x);
         System.out.println("Y:- "+y);
@@ -226,8 +227,7 @@ class Demo{
         for(Map.Entry<Integer, Integer> entory :map.entrySet()){
             System.out.println(entory.getKey()+" Frq "+entory.getValue());
         }
-    }
-    
+    }    
 
     void mostRepetedNumber(int arr[]){
         boolean isRead[]=new boolean[arr.length];
@@ -271,32 +271,209 @@ class Demo{
         System.out.println(ele+" fre:- "+maxCount);
     }
 
+    String reverseString(String str){
+        char strChar[]=str.toCharArray();
+        int l=0;
+        int r=strChar.length-1;
+        while(l<r){
+            char temp=strChar[l];
+            strChar[l]=strChar[r];
+            strChar[r]=temp;
+            l++;
+            r--;
+
+        }
+        return new String(strChar);
+    }
+
+    String reverseStringNormal(String str){
+        String rev="";
+        for(int i=str.length()-1;i>=0;i--){
+            rev=rev+str.charAt(i);
+        }
+        return rev;
+    }
+
+    boolean palindrom(String str){
+        char strChar[]=str.toCharArray();
+        int l=0;
+        int r=strChar.length-1;
+        while(l<r){
+            char temp=strChar[l];
+            strChar[l]=strChar[r];
+            strChar[r]=temp;
+            l++;
+            r--;
+
+        }
+        String rev= new String(strChar);
+        return rev.equals(str)?true:false;
+    }
+    
+    boolean palindromOpt(String str){
+        int s=0;
+        int l=str.length()-1;
+        while(s<l){
+            if(str.charAt(s)!=str.charAt(l)){
+                return false;
+            }
+            s++;
+            l--;
+        }
+        return true;
+    }
+
+    void countVovelAndConso(String str){
+        int vovel=0;
+        
+        for(int i=0;i<str.length();i++){
+            if( str.charAt(i)=='A' || str.charAt(i)=='E'|| str.charAt(i)=='I'|| str.charAt(i)=='O'|| str.charAt(i)=='U'|| str.charAt(i)=='a' || str.charAt(i)=='e'|| str.charAt(i)=='i'|| str.charAt(i)=='o'|| str.charAt(i)=='u' ){
+                vovel++;
+            }
+        }
+        System.out.println("Vovel :- "+ vovel);
+        System.out.println("Conso :- "+ (str.length() - vovel));
+    }
+
+    int countOfWords(String str){
+        int count=0;
+        for(int i=0;i<str.length();i++){
+            if((str.charAt(i) != ' ') && (i==0 || str.charAt(i-1)==' ')){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    boolean anagram(String str1,String str2){
+        if(str1.length()!=str2.length()) 
+            return false;
+        boolean visit[]=new boolean[str1.length()];
+        for(int i=0;i<str1.length();i++){
+            boolean vis=false;
+            for(int j=0;j<str1.length();j++){
+                if(str1.charAt(i)==str2.charAt(j) &&!visit[j]){
+                    visit[j]=true;
+                    vis=true;
+                    break;
+                }
+            }
+            if(!vis){
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+    boolean anagramDemo(String str1,String str2){
+        if(str1.length()!=str2.length())
+            return false;
+
+        boolean visitedArray[]=new boolean[str1.length()];
+        for(int i=0;i<str1.length();i++){
+            boolean visit=false;
+            for(int j=0;j<str1.length();j++){
+                if(str1.charAt(i)==str2.charAt(j)){
+                    visit=true;
+                    visitedArray[j]=true;
+                    break;
+                }
+            }
+            if(!visit)
+                return false;
+
+        }
+        return true;
+    }
+
+    boolean anagramOpt(String str1,String str2){
+        if(str1.length()!=str2.length())
+            return false;
+        HashMap<Character,Integer> map=new HashMap<>();
+
+        for(int i=0;i<str1.length();i++){
+            char ch=str1.charAt(i);
+            if(map.containsKey(ch)){
+                map.put(ch, map.get(ch)+1);
+            }else{
+                map.put(ch, 1);
+            }
+        }
+
+        for(int i=0;i<str2.length();i++){
+            char ch=str2.charAt(i);
+            if(!map.containsKey(ch)){
+                return false;
+            }else
+                map.put(ch, map.get(ch)-1);
+        }
+
+        for(int count:map.values()){
+            if(count!=0){
+                return false;
+            }
+        }
+
+
+        return true;
+    }
+
+    void charFrequncy(String str){
+        boolean[] visited=new boolean[str.length()];
+        for(int i=0;i<str.length();i++){
+            if(visited[i])
+                continue;
+            int count=0;
+            for(int j=i;j<str.length();j++){
+                if(str.charAt(i)==str.charAt(j)){
+                    visited[j]=true;
+                    count++;
+                }
+            }
+            System.out.println(str.charAt(i)+" Frq: "+count);
+        }
+    }
+
+    int firstUniqChar(String str){
+        for(int i=0;i<str.length();i++){
+
+            boolean uniq=true;
+            for(int j=0;j<str.length();j++){
+
+                if(j!=i && str.charAt(i)==str.charAt(j)){
+                    uniq=false;
+                    break;
+                }
+            }
+            if(uniq)
+                return i;
+        }
+
+        return -1;
+    }
+
+    int firstUniqCharOpt(String str){
+        HashMap<Character,Integer> map=new HashMap<>();
+
+        for(char ch: str.toCharArray()){
+            map.put(ch, map.getOrDefault(ch, 0)+1);
+        }
+
+        for (int i=0;i<str.length();i++) {
+            char ch=str.charAt(i);
+            if (map.get(ch) == 1) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
 
     public static void main(String[] args) {
         Demo oj=new Demo();
-        //oj.swap(10, 30);
-        // boolean x= oj.evenOrOdd(3);
-        // System.out.println(("is:- ")+(x ? "Even":"Odd"));
-        
-        //int result=oj.secLarge(arr);
-        // System.out.println("SecLarge: "+result);
-        // System.out.println("Sum Of 12345 is: "+oj.sumOfNumber(12345));
-        // System.out.println("Reverse Of 12345 is: "+oj.reverse(12345));
-        // System.out.println("Check Primse or not:- "+(oj.prime(5)?"Yes":"No"));
-        // System.out.println("Check Palindrom or not:- "+(oj.palindrom(1231)?"Yes":"No"));
-        // System.out.println("Check largest Number in array:- "+(oj.large(arr)));
-        // System.out.println("Check Small Number in array:- "+(oj.small(arr)));
-        // System.out.println("Sum of array is "+(oj.sumAndAverageOfArray(arr)+ " And Avrg is :- "+(oj.sumAndAverageOfArray(arr)/arr.length)));
-        // oj.countEvenAndOddNumber(arr);
-        // oj.reverseArr(arr);
-        // System.out.println("SecLarge: " +oj.secLatge(arr));
-        // System.out.println("SecSmall: " +oj.secSmall(arr));
-        // oj.duplicateEle(arr);
-        // oj.removeDouplicate(arr);
-        // oj.frequencyOfArray(arr);
-        int arr[]={2, 5, 2, 8, 5, 2, 9, 5};
-        oj.mostRepetedNumber(arr);
-        oj.mostRepetedNumberOpt(arr);
+        System.out.println(oj.firstUniqCharOpt("swiss"));
+
 
     }
 
