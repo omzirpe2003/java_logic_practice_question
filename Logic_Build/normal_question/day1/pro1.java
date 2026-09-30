@@ -670,7 +670,25 @@ class Demo{
         return maxWater;
     }
 
-   
+    int optMaxWaterInContaner(int []arr){
+        int maxWater=0;
+        int left=0;
+        int right=arr.length-1;
+        while(left<right){
+            int w=right-left;
+            int h=arr[right]<arr[left] ? arr[right] : arr[left];
+            int currWater=w*h;
+            maxWater=currWater>maxWater?currWater:maxWater;
+            if(arr[left]<arr[right]){
+                left++;
+            }else{
+                right--;
+            }
+
+        }
+        System.out.println(maxWater);
+        return maxWater;
+    }
 
 
     public static void main(String[] args) {
