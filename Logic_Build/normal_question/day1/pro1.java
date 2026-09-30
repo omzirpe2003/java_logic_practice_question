@@ -1,6 +1,7 @@
 package day1;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 class Demo{
@@ -470,9 +471,213 @@ class Demo{
         return -1;
     }
 
+
+    String uniqString(String str){
+        String result="";
+        System.out.println(str.length());
+        for(int i=0;i<str.length();i++){
+            boolean dub=false;
+            for(int j=0;j<result.length();j++){
+                if(str.charAt(i)==str.charAt(j)){
+                    dub=true;
+                    break;
+                }
+            }
+            if(!dub){
+                result+=str.charAt(i);
+            }
+                
+        }
+        return result;
+    }
+
+    void removeDouplicateInArray(int[] arr ){
+        int pointer=0;
+        for(int num:arr){
+            System.out.print(num);
+        }
+        System.out.println(" ");
+        for(int i=0;i<arr.length;i++){
+            if(arr[pointer]!=arr[i]){
+                arr[++pointer]=arr[i];
+            }
+        }
+        System.out.println("Pointer Len:- "+pointer);
+        for(int i=0;i<arr.length;i++){
+            if(pointer<i){
+                System.out.println("Removing el: "+arr[i]);
+                arr[i]=0;
+            }
+                
+        }
+        
+        for(int num:arr){
+            System.out.print(num);
+        }
+        System.out.println(" ");
+       
+    }
+
+    void reverseWord(String str){
+        StringBuffer result=new StringBuffer();
+        int end=str.length()-1;
+        while(end >= 0){
+
+            //Remove End Space
+            while(str.charAt(end)==' ')
+                end--;
+
+            //find Start of word
+            int start=end;
+            
+            while(start>=0&&str.charAt(start)!=' ')
+                start--;
+
+
+            //add the word in result
+            for(int i=start+1;i<=end;i++){
+                result.append(str.charAt(i));
+            }
+
+            //add space
+            if(start>0)
+                result.append(" ");
+
+            //set End 
+            end =start-1;
+
+        }
+        System.out.println(result);
+    }
+
+    String reversStringOpt(String str){
+        String[] strArray=str.split(" +");
+        StringBuffer result=new StringBuffer();
+        for(int i=strArray.length-1;i>=0;i--){
+            result.append(strArray[i]);
+            if(i!=0)
+                result.append(" ");
+        }
+        return result.toString();
+    }
+
+    
+
+    //Day-3
+
+    void findLargestSubString(String str){
+        for(int i=0;i<str.length();i++){
+            String subStr="";
+            for(int j=i;j<str.length();j++){
+                subStr+=str.charAt(j);
+            }
+            System.out.println(subStr+" ");
+        }
+    }
+
+    int findLargestSubStringOpt(String str){
+        int l=0;
+        int r=0;
+        int max=0;
+        HashMap<Character,Integer> map=new HashMap<>();
+        while(r<str.length()){
+           
+            if(map.containsKey(str.charAt(r))&& map.get(str.charAt(r))>=l){
+                l=map.get(str.charAt(r))+1;  
+            }
+            map.put(str.charAt(r),r);
+            int len= r - l + 1;
+            if(len>max)
+                max=len;
+
+             r++;
+
+        }
+
+        System.out.println(max);
+        return max;
+    }
+
+    void union(int arr1[],int arr2[]){
+
+        HashSet<Integer> set=new HashSet<>();
+        for(int i=0;i<arr1.length;i++){
+            set.add(arr1[i]);
+        }
+        for(int i=0;i<arr2.length;i++){
+            set.add(arr2[i]);
+        }
+
+        for(int num:set){
+            System.out.println(num+" ");
+        }
+    }
+
+    void unionOpt(int arr1[],int arr2[]){
+        int union[]=new int[arr1.length+arr2.length];
+        int k=0;
+        int i=0;
+        int j=0;
+        while(i<arr1.length && j<arr2.length){
+            
+            if(arr1[i]<arr2[j]){
+                if(k==0 ||union[k-1]==arr1[i]){
+                    union[k++]=arr1[i];
+                }
+                i++;
+            }else if(arr2[j]<arr1[i]){
+                if(k == 0 || union[k-1]==arr2[j]){
+                    union[k++] = arr2[j];
+                }
+                j++;
+            }else{
+                if(k==0 ||union[k-1]==arr1[i]){
+                    union[k++]=arr1[i];
+                }
+                i++;
+                j++;
+            }
+
+
+        }
+        while (i < arr1.length) {
+
+        if (k == 0 || union[k - 1] != arr1[i]) {
+            union[k++] = arr1[i];
+        }
+
+        i++;
+    }
+
+    
+}
+    //day-4
+
+    int maxWaterinContaner(int []arr){
+
+        int maxWater=0;
+        for(int i=0;i<arr.length;i++){
+            
+            for(int j=i+1;j<arr.length;j++){
+                int w=j-i;
+                int h= arr[i]>arr[j]?arr[j]:arr[i];
+                int water=w*h;
+                maxWater=water>maxWater?water:maxWater;
+            }
+        }
+
+        System.out.println("Anser is :"+maxWater);
+        return maxWater;
+    }
+
+   
+
+
     public static void main(String[] args) {
         Demo oj=new Demo();
-        System.out.println(oj.firstUniqCharOpt("swiss"));
+        //System.out.println(oj.uniqString("bcabc"));
+        int arr[]={1,8,6,2,5,4,8,3,7};
+        oj.maxWaterinContaner(arr);
 
 
     }
