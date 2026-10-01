@@ -51,5 +51,35 @@
 
 
 -- Sorting
-SELECT name ,auction_price_crores FROM ipl_players ORDER BY auction_price_crores DESC
+-- SELECT name ,auction_price_crores FROM ipl_players ORDER BY auction_price_crores DESC
+-- Multi Colum Sorting
+-- SELECT team,name , auction_price_crores FROM ipl_players 
+-- ORDER BY auction_price_crores DESC , team ASC
 
+-- ! Pagination 
+ -- LIMIT :- First 3 Data and default offset=0
+
+
+-- SELECT name, auction_price_crores, nickname 
+-- FROM ipl_players 
+-- ORDER BY auction_price_crores DESC 
+-- LIMIT 3;
+
+
+-- OFFSET :- How may data want to skip 
+-- SELECT name, auction_price_crores, nickname 
+-- FROM ipl_players 
+-- ORDER BY auction_price_crores DESC 
+-- LIMIT 3 OFFSET 3;      (page -1) * limit :- In Devlopemtn Code
+
+-- ! modify data in Runtime
+-- SELECT 
+--     name, nickname, auction_price_crores, 
+--     (auction_price_crores*100) as prise_in_lack 
+-- FROM ipl_players;
+
+-- ! DISTINCT :- uniq value 
+
+-- SELECT DISTINCT role from ipl_players;
+
+---- ! DQL :- Data Query language
