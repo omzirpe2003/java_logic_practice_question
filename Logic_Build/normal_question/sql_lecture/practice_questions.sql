@@ -39,6 +39,33 @@
 -- ('Riya',   'Pune',      'Haldiram',          'Snacks',       'Pav Bhaji',           1, 130.00, 20.00, 2,    'delivered', 'Cash', '2024-01-14');
 
 
+-- Part 1: SELECT and WHERE (1-10)
+-- Show customer_name, item, and order_status for all orders.
 SELECT * FROM food_orders
 
+-- Find all orders placed from 'Pune'.
 SELECT * FROM food_orders where city = 'Pune';
+
+-- Find all orders where payment_mode is 'Cash'.
+SELECT * FROM food_orders where payment_mode ='Cash';
+
+-- Find orders where quantity is 3 or more.
+SELECT * FROM food_orders WHERE quantity >= 3; 
+
+-- Find all orders that are not delivered.
+SELECT * FROM food_orders where order_status ='pending';
+
+-- Find orders where price_per_item is between 100 and 300.
+SELECT * FROM food_orders WHERE price_per_item BETWEEN 100 AND 300;
+
+-- Find all orders whose item contains the word 'Biryani' (use LIKE).
+SELECT * FROM food_orders WHERE item LIKE '%Biryani%';
+
+-- Find orders from 'Delhi' or 'Mumbai' using IN.
+SELECT * FROM food_orders WHERE city IN ('Delhi','Mumbai');
+
+-- Find orders that have not been rated yet.
+SELECT * FROM food_orders WHERE rating IS NULL;
+
+-- Find delivered orders from 'Pune' paid by 'UPI'.
+SELECT * FROM food_orders WHERE city ='Pune' AND payment_mode = 'UPI';
