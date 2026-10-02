@@ -696,6 +696,9 @@ class Demo{
         return maxWater;
     }
 
+
+//   02/10/2026
+    //3 Sum Brute Force
     public List<List<Integer>> brouteForce3sum(int arr[]){
         
         List<List<Integer>> list =new ArrayList<>();
@@ -720,6 +723,7 @@ class Demo{
         return list;
     }
 
+    // 3Sum Adv Brute force
     List<List<Integer>> advBrute3Sum(int arr[]){
         List<List<Integer>> list=new ArrayList<>();
         
@@ -746,9 +750,7 @@ class Demo{
         return list;
     }
 
-
-
-
+    //3Sum Opt
     List<List<Integer>> opt3Sum(int arr[]){
         List<List<Integer>> list=new ArrayList<>();
         Arrays.sort(arr);
@@ -787,19 +789,78 @@ class Demo{
         return list;
     }
 
+    // 3Sum closest broute force
+    int closest3Sum(int arr[], int target){
+        int closest =arr[0]+arr[1]+arr[2];
+        for(int i=0;i<arr.length;i++){
+
+            for(int j=i+1;j<arr.length;j++){
+
+                for(int k=j+1;k<arr.length;k++){
+                    int sum= arr[i]+arr[j] +arr[k];
+                    if(sum==target)
+                        return sum;
+                    int diff1= sum - target;
+                    int diff2 = closest - target;
+                    if(diff1<0)
+                        diff1 = -diff1;
+                    if(diff2 < 0)
+                        diff2 = -diff2;
+
+                    if(diff1< diff2)
+                        closest = sum;
+
+                }
+            }
+
+        }
+        return closest;
+    }
+
+    // 3Sum closest Opt
+    int closest3SumOpt(int arr[], int target){
+        int closest =arr[0]+arr[1]+arr[2];
+        Arrays.sort(arr);
+        for(int i=0;i<arr.length;i++){
+            if(i>0 && arr[i]==arr[i-1])
+                continue;
+            int left = i+1;
+            int right = arr.length -1 ;
+            while(left < right){
+                int sum =arr[i] +arr[left] + arr[right];
+                if(sum<target)
+                    left ++;
+                else if(sum > target )
+                    right --;
+                else if(sum == target)
+                    return sum;
+
+                int diff1 = sum - target;
+                int diff2 =closest - target;
+                if(diff1<0)
+                    diff1 = - diff1;
+                if(diff2 < 0)
+                    diff2 = -diff2;
+                if(diff1<diff2)
+                    closest = sum;
+            }
+        }
+        return closest;
+    }
 
     public static void main(String[] args) {
         Demo oj=new Demo();
         //System.out.println(oj.uniqString("bcabc"));
-        int arr[]={-1,0,1,2,-1,-4};
-        List<List<Integer>>ressult = oj.advBrute3Sum(arr);
-        for(List<Integer> x : ressult ){
-            System.out.println(x);
-            for(Integer y : x)
-                System.out.println(y);
-        }
+        int arr[]={-1,2,1,-4};
+        // List<List<Integer>>ressult = oj.advBrute3Sum(arr);
+        // for(List<Integer> x : ressult ){
+        //     System.out.println(x);
+        //     for(Integer y : x)
+        //         System.out.println(y);
+        // }
 
-
+        int result =oj.closest3SumOpt(arr, 1);
+        System.out.println(result);
     }
 
 }
