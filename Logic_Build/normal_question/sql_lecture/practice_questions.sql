@@ -72,6 +72,7 @@ SELECT * FROM food_orders WHERE rating IS NULL;
 SELECT * FROM food_orders WHERE city ='Pune' AND payment_mode = 'UPI';
 
 
+
 -- Part 2: Logic, Patterns, and Sorting (11-17)
 
 -- Find customers whose name starts with 'A' and who ordered from a city other than Pune.
@@ -96,6 +97,7 @@ SELECT * FROM food_orders ORDER BY order_date ASC LIMIT 4 OFFSET 6;
 SELECT DISTINCT  cuisine, restaurant FROM food_orders ;
 
 
+
 -- Part 3: Calculations and Aliases (18-20)
 -- Show customer_name and total_bill, where total bill = quantity * price_per_item + delivery_fee, sorted highest first.
 SELECT customer_name, (quantity * price_per_item + delivery_fee)  as total_bill FROM food_orders ORDER BY total_bill DESC;
@@ -105,3 +107,39 @@ SELECT item, price_per_item + (price_per_item * 5 /100 ) as price_with_gst FROM 
 
 -- Show the top 3 biggest total bills among delivered orders only.
 SELECT *, (quantity * price_per_item + delivery_fee)  as total_bill  FROM food_orders WHERE order_status ='delivered' ORDER BY total_bill DESC LIMIT 3;
+
+
+
+-- Part 4: INSERT, UPDATE, DELETE (21-25);
+-- Insert one new order of your choice, leaving rating as NULL.;
+
+
+-- Insert 2 orders in a single INSERT for the city 'Hyderabad'.;
+
+-- Change the status of all 'pending' orders to 'delivered'.;
+UPDATE food_orders
+SET order_status= 'delivered'
+WHERE order_status = 'pending';
+SELECT * FROM food_orders WHERE order_status ='delivered';
+
+-- Give a Rs. 10 discount on delivery_fee for all orders paid with 'Card'.
+UPDATE food_orders
+SET delivery_fee = delivery_fee - 10
+WHERE payment_mode= 'Card';
+
+
+-- Delete all cancelled orders. (Preview them with SELECT first!)
+
+SELECT * FROM food_orders
+WHERE order_status= 'cancelled'
+
+DELETE FROM food_orders
+WHERE order_status= 'cancelled'
+
+
+-- Part 5: Aggregates, GROUP BY, and HAVING (26-30)
+-- Find the total number of orders, the average rating, and the highest price_per_item in a single query.
+-- Show the number of orders per city, highest first.
+-- Show total revenue (quantity * price_per_item) per restaurant, but only for delivered orders, highest first.
+-- Show the average rating per cuisine, but only cuisines with an average above 3.5.
+-- Show payment_mode and the number of orders for each, but only modes that have more than 5 orders.
