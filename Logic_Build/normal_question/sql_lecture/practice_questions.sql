@@ -139,7 +139,100 @@ WHERE order_status= 'cancelled'
 
 -- Part 5: Aggregates, GROUP BY, and HAVING (26-30)
 -- Find the total number of orders, the average rating, and the highest price_per_item in a single query.
+
+SELECT 
+    COUNT(*) as total_order, 
+    AVG(rating) as average_rating, 
+    MAX(price_per_item) as highest_price_per_item 
+FROM food_orders;
+
 -- Show the number of orders per city, highest first.
+SELECT 
+    city, COUNT(customer_name)
+    FROM food_orders
+    GROUP BY city
+ORDER BY city DESC;
+
 -- Show total revenue (quantity * price_per_item) per restaurant, but only for delivered orders, highest first.
+SELECT 
+    restaurant,
+    SUM(quantity * price_per_item) as revenue
+    FROM food_orders
+    WHERE order_status = 'delivered'
+    GROUP BY restaurant
+ORDER BY revenue DESC;
+
 -- Show the average rating per cuisine, but only cuisines with an average above 3.5.
+SELECT 
+    cuisine,
+    AVG(rating) as average_rating 
+    FROM food_orders
+    WHERE rating IS NOT NULL
+    GROUP BY cuisine
+HAVING AVG(rating) > 3.5;
+
 -- Show payment_mode and the number of orders for each, but only modes that have more than 5 orders.
+SELECT payment_mode, 
+    COUNT(customer_name) as orders
+    FROM food_orders
+    GROUP BY payment_mode
+HAVING COUNT(customer_name) > 5 ;
+
+
+-- Part 6: WHERE + GROUP BY + HAVING Questions
+-- Show the total revenue for each restaurant, considering only delivered orders, and show only restaurants with revenue greater than ₹1000.
+SELECT restaurant,
+    SUM(quantity * price_per_item) as revenue
+    FROM food_orders
+    WHERE order_status = 'delivered'
+    GROUP BY restaurant
+HAVING SUM(quantity * price_per_item) > 1000;
+
+-- Show the number of orders for each city, considering only UPI payments, and show only cities with more than 2 orders.
+SELECT 
+    city,
+    COUNT(*) as total_order
+    FROM food_orders
+    WHERE payment_mode = 'UPI'
+    GROUP BY city
+HAVING COUNT(*) > 2;
+
+-- Show the average rating for each cuisine, considering only delivered orders, and show only cuisines with an average rating greater than 4.
+SELECT 
+    cuisine,
+    AVG(rating) as avg_rating
+    FROM food_orders
+    WHERE order_status = 'delivered'
+    GROUP BY cuisine
+HAVING AVG(rating) > 4 
+
+-- Show the total quantity ordered for each restaurant, considering only Card payments, and show only restaurants where the total quantity is greater than 3.
+
+SELECT 
+    restaurant,
+    SUM(quantity) as total_quantity
+    FROM food_orders
+    WHERE payment_mode = 'Card'
+    GROUP BY restaurant
+HAVING SUM(quantity) > 3
+
+
+-- Show the total revenue for each city, considering only orders with quantity >= 2, and show only cities with total revenue greater than ₹1000.
+SELECT 
+    city,
+    SUM(quantity * price_per_item) as revenue,
+    COUNT(*) as orders
+    FROM food_orders
+    WHERE quantity >=2
+    GROUP BY city
+HAVING SUM(quantity * price_per_item) > 1000 ;
+
+
+-- Show the total revenue for each city, considering only orders with orders >= 2, and show only cities with total revenue greater than ₹1000.
+SELECT 
+    city,
+    SUM(quantity * price_per_item) as revenue,
+    COUNT(*) as orders
+    FROM food_orders
+    GROUP BY city
+HAVING SUM(quantity * price_per_item) > 1000 AND COUNT(*) >= 2;
