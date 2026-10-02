@@ -39,6 +39,7 @@
 -- ('Riya',   'Pune',      'Haldiram',          'Snacks',       'Pav Bhaji',           1, 130.00, 20.00, 2,    'delivered', 'Cash', '2024-01-14');
 
 
+
 -- Part 1: SELECT and WHERE (1-10)
 -- Show customer_name, item, and order_status for all orders.
 SELECT * FROM food_orders
@@ -69,3 +70,29 @@ SELECT * FROM food_orders WHERE rating IS NULL;
 
 -- Find delivered orders from 'Pune' paid by 'UPI'.
 SELECT * FROM food_orders WHERE city ='Pune' AND payment_mode = 'UPI';
+
+
+-- Part 2: Logic, Patterns, and Sorting (11-17)
+
+-- Find customers whose name starts with 'A' and who ordered from a city other than Pune.
+SELECT * FROM food_orders WHERE customer_name LIKE 'A%' AND NOT city = 'Pune';
+
+-- Find orders where the customer name has 'a' as its second letter.
+SELECT * FROM food_orders where customer_name LIKE '_a%';
+
+-- Find Italian or Mughlai orders that are delivered (careful with parentheses).
+SELECT * FROM food_orders WHERE cuisine IN ('Italian','Mughlai') AND order_status = 'delivered';
+
+-- Show customer_name and rating, sorted by rating highest first, for orders that have a rating.
+SELECT customer_name, rating FROM food_orders WHERE rating IS NOT NULL ORDER BY rating DESC ;
+
+-- Show the 5 most expensive items (item, price_per_item), highest first.
+SELECT item , price_per_item FROM food_orders ORDER BY price_per_item DESC LIMIT 5;
+
+-- Show orders 6 to 10 when sorted by order_date ascending (use LIMIT and OFFSET).
+SELECT * FROM food_orders ORDER BY order_date ASC LIMIT 4 OFFSET 6;
+
+-- List every unique cuisine, and then every unique restaurant.
+SELECT DISTINCT  cuisine, restaurant FROM food_orders ;
+
+
