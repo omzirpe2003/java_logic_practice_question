@@ -96,3 +96,12 @@ SELECT * FROM food_orders ORDER BY order_date ASC LIMIT 4 OFFSET 6;
 SELECT DISTINCT  cuisine, restaurant FROM food_orders ;
 
 
+-- Part 3: Calculations and Aliases (18-20)
+-- Show customer_name and total_bill, where total bill = quantity * price_per_item + delivery_fee, sorted highest first.
+SELECT customer_name, (quantity * price_per_item + delivery_fee)  as total_bill FROM food_orders ORDER BY total_bill DESC;
+
+-- Show item and price_with_gst, where GST is 5% extra on price_per_item.
+SELECT item, price_per_item + (price_per_item * 5 /100 ) as price_with_gst FROM food_orders;
+
+-- Show the top 3 biggest total bills among delivered orders only.
+SELECT *, (quantity * price_per_item + delivery_fee)  as total_bill  FROM food_orders WHERE order_status ='delivered' ORDER BY total_bill DESC LIMIT 3;
