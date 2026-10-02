@@ -719,12 +719,50 @@ class Demo{
         return list;
     }
 
+    List<List<Integer>> opt3Sum(int arr[]){
+        List<List<Integer>> list=new ArrayList<>();
+        Arrays.sort(arr);
+        for(int i=0;i<arr.length;i++){
+            if(i>0 && arr[i]==arr[i-1])
+                continue;
+
+            int j=i+1;
+            int k=arr.length-1;
+            while (j<k){
+
+                int sum =arr[i] +arr[j] +arr[k];
+                if(sum ==0){
+                    List<Integer> triplet =Arrays.asList(
+                        arr[i],
+                        arr[j],
+                        arr[k]
+                    );
+                    if(!list.contains(triplet))
+                        list.add(triplet);
+
+                    while(j<k && arr[j]==arr[j+1])
+                        j++;
+                    while(j<k && arr[k]==arr[k-1])
+                        k++;
+                    j++;
+                    k--;                    
+                }if(sum>0){
+                    k--;
+                }if(sum<0)
+                    j++;
+
+            }
+        }
+
+        return list;
+    }
+
 
     public static void main(String[] args) {
         Demo oj=new Demo();
         //System.out.println(oj.uniqString("bcabc"));
         int arr[]={-1,0,1,2,-1,-4};
-        List<List<Integer>>ressult = oj.brouteForce3sum(arr);
+        List<List<Integer>>ressult = oj.opt3Sum(arr);
         for(List<Integer> x : ressult ){
             System.out.println(x);
             for(Integer y : x)
