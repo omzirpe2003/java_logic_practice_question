@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 class Demo{
 
@@ -719,6 +720,35 @@ class Demo{
         return list;
     }
 
+    List<List<Integer>> advBrute3Sum(int arr[]){
+        List<List<Integer>> list=new ArrayList<>();
+        
+        for(int i=0;i<arr.length;i++){
+            Set<Integer> set=new HashSet<>();
+            for(int j=i+1;j<arr.length;j++){
+                int toFind = 0 + arr[i] + arr[j];
+                if(set.contains(toFind)){
+                    List<Integer> triplet =Arrays.asList(
+                        arr[i],
+                        arr[j],
+                        arr[toFind]
+                    );
+                     Collections.sort(triplet);
+                    if(!list.contains(triplet))
+                        list.add(triplet);
+
+
+                }
+                set.add(arr[j]);
+            }
+        }
+
+        return list;
+    }
+
+
+
+
     List<List<Integer>> opt3Sum(int arr[]){
         List<List<Integer>> list=new ArrayList<>();
         Arrays.sort(arr);
@@ -743,12 +773,12 @@ class Demo{
                     while(j<k && arr[j]==arr[j+1])
                         j++;
                     while(j<k && arr[k]==arr[k-1])
-                        k++;
+                        k--;
                     j++;
                     k--;                    
-                }if(sum>0){
+                }else if(sum>0){
                     k--;
-                }if(sum<0)
+                }else
                     j++;
 
             }
@@ -762,7 +792,7 @@ class Demo{
         Demo oj=new Demo();
         //System.out.println(oj.uniqString("bcabc"));
         int arr[]={-1,0,1,2,-1,-4};
-        List<List<Integer>>ressult = oj.opt3Sum(arr);
+        List<List<Integer>>ressult = oj.advBrute3Sum(arr);
         for(List<Integer> x : ressult ){
             System.out.println(x);
             for(Integer y : x)
