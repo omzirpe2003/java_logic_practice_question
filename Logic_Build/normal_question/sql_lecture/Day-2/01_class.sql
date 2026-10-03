@@ -51,3 +51,70 @@ INSERT INTO internships (student_id, company_name, role, stipend, status) VALUES
 
 
 SELECT * FROM internships;
+
+
+
+-- !Inner join
+SELECT 
+    students.student_id, 
+    students.name, 
+    students.branch,
+    internships.company_name,
+    internships.status 
+FROM internships
+INNER JOIN students
+ON students.student_id=internships.student_id;
+
+
+SELECT 
+    s.student_id, 
+    s.name, 
+    s.branch,
+    i.company_name,
+    i.status 
+FROM internships as i
+INNER JOIN students as s
+ON s.student_id=i.student_id;
+
+
+
+SELECT 
+    s.*,
+    i.*
+FROM internships as i
+INNER JOIN students as s
+ON s.student_id=i.student_id;
+
+
+
+-- LEFT JOIN 
+
+SELECT 
+    students.name,
+    students.branch,
+    internships.company_name,
+    internships.stipend
+FROM students
+LEFT JOIN internships 
+ON students.student_id=internships.internships_id;
+
+
+-- RIGHT JOIN 
+SELECT 
+    students.name,
+    students.branch,
+    internships.company_name,
+    internships.stipend
+FROM students
+RIGHT JOIN internships 
+ON students.student_id=internships.internships_id;
+
+-- Full Outer Join :- All Data has ref or not also with null 
+SELECT 
+    students.name,
+    students.branch,
+    internships.company_name,
+    internships.stipend
+FROM students
+FULL OUTER JOIN internships 
+ON students.student_id=internships.internships_id;
