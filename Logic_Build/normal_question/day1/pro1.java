@@ -848,10 +848,70 @@ class Demo{
         return closest;
     }
 
+
+    //03/10/2026
+    List<Integer> partitionLable(String str){
+        List<Integer> list=new ArrayList<>();
+        Map<Character,Integer> map=new HashMap<>();
+
+
+        //Find Last Ocurence
+        for(int i=0;i<str.length();i++){
+            char arr =str.charAt(i);
+            if(map.containsKey(arr))
+                map.put(arr, i);
+            else
+                map.put(arr,i);
+            
+        }
+        for(Map.Entry<Character,Integer> entry :map.entrySet()){
+            System.out.println("Char Last Ocr-> "+entry.getKey()+" at position-> "+entry.getValue());
+        }
+
+        //Find Partation
+        for(int i=0;i<str.length();i++){
+            int j=i;
+            int k=map.get(str.charAt(i));
+            while (j<k){
+                if(k < map.get(str.charAt(j)))
+                    k=map.get(str.charAt(j));
+                j++;
+            }
+            System.out.println("Partition Length is: " + (j - i + 1));
+            list.add(j-i+1);
+            i= j+1;
+
+        }
+
+        return list;
+    }
+
+
+    List<Integer> partitionLableOpt(String str){
+        List<Integer> list=new ArrayList<>();
+        int left = 0; 
+        int right = 0;
+        for(int i=0;i<str.length();i++){
+            char ch=str.charAt(i);
+            int apper=str.lastIndexOf(ch);
+            if(apper>right)
+                right=apper;
+            if(i==right){
+                list.add(right-left+1);
+                left=i+1;
+            }
+        }
+
+        return list;
+    }
+
+
+
     public static void main(String[] args) {
         Demo oj=new Demo();
         //System.out.println(oj.uniqString("bcabc"));
         int arr[]={-1,2,1,-4};
+        
         // List<List<Integer>>ressult = oj.advBrute3Sum(arr);
         // for(List<Integer> x : ressult ){
         //     System.out.println(x);
@@ -859,8 +919,11 @@ class Demo{
         //         System.out.println(y);
         // }
 
-        int result =oj.closest3SumOpt(arr, 1);
-        System.out.println(result);
+        //int result =oj.partitionLable(arr, 1);
+        //System.out.println(result);
+        List<Integer> result= oj.partitionLableOpt("ababcbacadefegdehijhklij");
+        for(int i:result)
+                System.out.println(i);
     }
 
 }
