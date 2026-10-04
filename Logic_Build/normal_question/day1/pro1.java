@@ -906,42 +906,25 @@ class Demo{
     }
 
     // Rotate Array By One
-    public void rotate(int[] arr, int k) {
-        System.out.println("Demo");
-        int l=0;
-        int r=arr.length-1;
-        while(l<r){
-            int temp=arr[l];
-            arr[l]=arr[r];
-            arr[r]=temp;
-            l++;
-            r--;
+    public void rotate(int[] arr) {
+        int temp=arr[0];
+        for(int i=1;i<arr.length;i++){
+            arr[i-1]=arr[i];
         }
-        for(int x:arr){
-            System.out.print(x+" ");
-        }
-        System.out.println(" ");
+        arr[arr.length-1]=temp;
+        for(int i :arr)
+            System.out.println(i);
+    }
 
-        l=0;
-        r=k-1;
-        while(l<r){
-            int temp=arr[l];
-            arr[l]=arr[r];
-            arr[r]=temp;
-            l++;
-            r--;
-        }
-        for(int x:arr){
-            System.out.print(x+" ");
-        }
-        System.out.println(" ");
-    } 
+    
+
+
 
     public static void main(String[] args) {
         Demo oj=new Demo();
         //System.out.println(oj.uniqString("bcabc"));
         int arr[]={1,2,3,4,5,6,7};
-        oj.rotate(arr,3);
+        oj.rotate(arr);
     }
 
 }
