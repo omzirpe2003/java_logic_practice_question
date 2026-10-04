@@ -965,15 +965,41 @@ class Demo{
         System.out.println(" ");
     }
 
-    
+    void swap(int arr[],int x,int y){
+        int temp=arr[x];
+        arr[x]=arr[y];
+        arr[y]=temp;
+    }
+    //Sort 0's,1's,2's
+    void sortZOT(int arr[]){
+        int l=0;
+        int m=0;
+        int h=arr.length-1;
+        while(m<=h){
+            if(arr[m]==0){
+                swap(arr, l,m);
+                l++;
+                m++;
+            }else if(arr[m]==1){
+                m++;
+            }else if(arr[m]==2){
+                swap(arr,m,h);
+                h--;
+            }
+        }
+        for(int i=0;i<arr.length;i++){
+            System.out.print(arr[i]);
+        }
+        System.out.println(" ");
+    }
 
 
 
     public static void main(String[] args) {
         Demo oj=new Demo();
         //System.out.println(oj.uniqString("bcabc"));
-        int arr[]={1,0,2,3,2,0,0,4,5,1};
-        oj.moveZeroToEnd(arr);
+        int arr[]={2,0,2,1,1,0};
+        oj.sortZOT(arr);
     }
 
 }
