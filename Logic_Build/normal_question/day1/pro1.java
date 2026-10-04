@@ -905,6 +905,7 @@ class Demo{
         return list;
     }
 
+    //04/10/2026
     // Rotate Array By One
     public void rotate(int[] arr) {
         int temp=arr[0];
@@ -916,7 +917,7 @@ class Demo{
             System.out.println(i);
     }
 
-    //ROtate Array By K Distenc
+    //Rotate Array By K Distenc
     public void rotateByK(int []arr,int k){
         k=k % arr.length;
         int temp[]=new int[k];
@@ -937,6 +938,33 @@ class Demo{
         
     }
 
+
+    //Move Zero to End
+    void moveZeroToEnd(int arr[]){
+        int zeroIndex=0;
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]==0){
+                zeroIndex=i;
+                break;
+            }
+        }
+        int i=zeroIndex + 1;
+        System.out.println(zeroIndex+" at");
+        while(i<arr.length){
+            if(arr[i]!=0){
+                int temp=arr[i];
+                arr[i]=arr[zeroIndex];
+                arr[zeroIndex]=temp;
+                zeroIndex++;
+            }
+            i++;
+        }
+        for(int ii=0;ii<arr.length;ii++){
+            System.out.print(arr[ii]+" ");
+        }
+        System.out.println(" ");
+    }
+
     
 
 
@@ -944,8 +972,8 @@ class Demo{
     public static void main(String[] args) {
         Demo oj=new Demo();
         //System.out.println(oj.uniqString("bcabc"));
-        int arr[]={1,2,3,4,5,6,7};
-        oj.rotateByK(arr,3);
+        int arr[]={1,0,2,3,2,0,0,4,5,1};
+        oj.moveZeroToEnd(arr);
     }
 
 }
