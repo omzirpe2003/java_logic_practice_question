@@ -916,6 +916,27 @@ class Demo{
             System.out.println(i);
     }
 
+    //ROtate Array By K Distenc
+    public void rotateByK(int []arr,int k){
+        k=k % arr.length;
+        int temp[]=new int[k];
+        for(int i=0;i<k;i++){
+            temp[i]=arr[i];
+        }
+
+        for(int i=k;i<arr.length;i++){
+            arr[i-k]=arr[i];
+        }
+
+        for(int i=0;i<k;i++){
+            arr[arr.length - k + i]=temp[i];
+        }
+        for(int i:arr)
+            System.out.print(i);
+        System.out.println(" ");
+        
+    }
+
     
 
 
@@ -924,7 +945,7 @@ class Demo{
         Demo oj=new Demo();
         //System.out.println(oj.uniqString("bcabc"));
         int arr[]={1,2,3,4,5,6,7};
-        oj.rotate(arr);
+        oj.rotateByK(arr,3);
     }
 
 }
