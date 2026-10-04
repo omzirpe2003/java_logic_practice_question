@@ -905,25 +905,43 @@ class Demo{
         return list;
     }
 
+    // Rotate Array By One
+    public void rotate(int[] arr, int k) {
+        System.out.println("Demo");
+        int l=0;
+        int r=arr.length-1;
+        while(l<r){
+            int temp=arr[l];
+            arr[l]=arr[r];
+            arr[r]=temp;
+            l++;
+            r--;
+        }
+        for(int x:arr){
+            System.out.print(x+" ");
+        }
+        System.out.println(" ");
 
+        l=0;
+        r=k-1;
+        while(l<r){
+            int temp=arr[l];
+            arr[l]=arr[r];
+            arr[r]=temp;
+            l++;
+            r--;
+        }
+        for(int x:arr){
+            System.out.print(x+" ");
+        }
+        System.out.println(" ");
+    } 
 
     public static void main(String[] args) {
         Demo oj=new Demo();
         //System.out.println(oj.uniqString("bcabc"));
-        int arr[]={-1,2,1,-4};
-        
-        // List<List<Integer>>ressult = oj.advBrute3Sum(arr);
-        // for(List<Integer> x : ressult ){
-        //     System.out.println(x);
-        //     for(Integer y : x)
-        //         System.out.println(y);
-        // }
-
-        //int result =oj.partitionLable(arr, 1);
-        //System.out.println(result);
-        List<Integer> result= oj.partitionLableOpt("ababcbacadefegdehijhklij");
-        for(int i:result)
-                System.out.println(i);
+        int arr[]={1,2,3,4,5,6,7};
+        oj.rotate(arr,3);
     }
 
 }
