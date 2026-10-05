@@ -2,7 +2,7 @@
 
 
 ## This work only for .txt format 
-# with open ('dataset.pdf','r',encoding='utf-8') as f :
+# with open ('dataset.txt','r',encoding='utf-8') as f :
 #     raw_text=f.read()
 # print("Total number of character: ",len(raw_text))
 # print(raw_text[:99])
