@@ -84,6 +84,7 @@ data_iter = iter(dataLoader)
 first_batch = next(data_iter)
 
 print(first_batch)
+print("Hel")
 
 
 input_ids, target_ids = first_batch
