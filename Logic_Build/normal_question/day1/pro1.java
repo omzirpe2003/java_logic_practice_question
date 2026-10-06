@@ -1053,11 +1053,101 @@ class Demo{
     }
 
 
+    //2-Partition Array According to Given Pivot
+
+    //Brute Force 
+    /*
+     1) #Store in array
+        1.Store elements < pivot
+        2.Store elements == pivot
+        3.Store elements > pivot
+     2)Store in nums 
+        return num;
+    */
+   int[] partationArrayToPivotBrute(int arr[],int pvt){
+    int s=0;
+    int e=0;
+    int l=0;
+    int sm[]=new int[arr.length];
+    int eq[]=new int[arr.length];
+    int lr[]=new int[arr.length];
+    for(int i=0;i<arr.length;i++){
+        if(arr[i]==pvt){
+            eq[e++]=arr[i];  
+            
+        }else if(arr[i]>pvt){
+            lr[l++]=arr[i];
+        }else{
+            sm[s++]=arr[i];
+        }
+    }
+    int[] ans = new int[arr.length];
+    int index = 0;
+
+    // Add less
+    for(int i = 0; i < s; i++)
+        ans[index++] = sm[i];
+
+    // Add equal
+    for(int i = 0; i < e; i++)
+        ans[index++] = eq[i];
+
+    // Add greater
+    for(int i = 0; i < l; i++)
+        ans[index++] = lr[i];
+    return ans;
+   }
+
+   //Adv
+   /*
+    1. find the count of samller and eql of pvt elemtn 
+    2. set i, j, k index i for saller , j for eql of pvt and k for grt for pvt
+    3. create a num and set in this.
+   */
+   int[] partationArrayToPivotAdv(int arr[],int pvt){
+        int s=0;
+        int eq=0;
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]==pvt)
+                eq++;
+            else if(arr[i]<pvt)
+                s++;
+        }
+        int ii=0;
+        int j=s;        
+        int k=s+eq;
+        int num[]=new int[arr.length];
+        for(int i = 0; i < arr.length; i++) {
+
+            if(arr[i] < pvt)
+                num[ii++] = arr[i];
+
+            else if(arr[i] == pvt)
+                num[j++] = arr[i];
+
+            else
+                num[k++] = arr[i];
+        }
+        for(int i=0;i<num.length;i++){
+            System.out.print(num[i]+" ");
+        }
+        System.out.println(" ");
+        return num;
+
+
+   }
+
+
     public static void main(String[] args) {
         Demo oj=new Demo();
         //System.out.println(oj.uniqString("bcabc"));
-        int arr[]={2,1,5,4,3,0,0};
-        oj.nextPermutation(arr);
+        int arr[]={9,12,5,10,14,3,10};
+        // int result[]=oj.partationArrayToPivotBrute(arr,10);
+        // for(int i:result){
+        //     System.out.print(i+" ");
+        // }
+        // System.out.println(" ");
+        oj.partationArrayToPivotAdv(arr,10);
     }
 
 }
