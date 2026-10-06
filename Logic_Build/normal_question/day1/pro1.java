@@ -993,13 +993,71 @@ class Demo{
         System.out.println(" ");
     }
 
+    void reverseArray(int[] arr, int start, int end) {
+
+        while(start < end) {
+
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+
+            start++;
+            end--;
+        }
+    }
+
+    //06/10/2026   
+
+    //1) Next Permutation
+    //  1. Find The Brek Point (2,1,5,4,3,0,0)
+    //         so the brek point index is 1 decous 1<5
+    //  IMP is brickPint ==-1 revers all array ele becous he in last permutation.
+    //  2. find the slite greter then breakPint Value
+    //  3. before break point the all elements are in incressing order to swap them
+    void nextPermutation(int arr[]){
+        for(int i=0;i<arr.length;i++){
+            System.out.print(arr[i]);
+        }
+        System.out.println(" ");
+
+        //step-1
+        int breakPint=-1;
+        for(int i=arr.length-2;i>=0;i--){
+            if(arr[i]<arr[i+1]){
+                breakPint=i;
+                break;
+            }
+        }
+        System.out.println("The Break Point "+breakPint);
+        
+        if(breakPint!=-1){
+            //step-2
+        for(int i =arr.length-1;i>=0;i--){
+            if(arr[i]>arr[breakPint]){
+                swap(arr,i,breakPint);
+                break;
+            }
+        }
+
+        //step-3
+        reverseArray(arr, breakPint+1, arr.length-1);
+
+        for(int i=0;i<arr.length;i++){
+            System.out.print(arr[i]);
+        }
+        System.out.println(" ");
+        }else{
+            reverseArray(arr, 0,arr.length-1);
+        }
+    
+    }
 
 
     public static void main(String[] args) {
         Demo oj=new Demo();
         //System.out.println(oj.uniqString("bcabc"));
-        int arr[]={2,0,2,1,1,0};
-        oj.sortZOT(arr);
+        int arr[]={2,1,5,4,3,0,0};
+        oj.nextPermutation(arr);
     }
 
 }
