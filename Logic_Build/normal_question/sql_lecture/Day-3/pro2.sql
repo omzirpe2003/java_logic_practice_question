@@ -148,27 +148,64 @@ VALUES
 -- RIGHT JOIN
 
 -- Display all departments and their employee names, including departments with no employees.
-    
+    SELECT department_name, emp_name FROM employees
+    RIGHT JOIN departments
+    ON employees.department_id=departments.department_id
 
 -- Find departments that do not have any employees.
+    SELECT department_name, emp_name FROM employees
+    RIGHT JOIN departments
+    ON employees.department_id=departments.department_id
+    WHERE emp_name IS NULL;
 
 -- Count employees in every department, including departments with zero employees.
+    SELECT COUNT(emp_name), department_name FROM employees
+    RIGHT JOIN departments
+    ON employees.department_id=departments.department_id
+    GROUP BY department_name;
 
 -- Display every department's name, city, and employee names, sorted by department name.
+    SELECT department_name, emp_name, city FROM employees
+    RIGHT JOIN departments
+    ON employees.department_id=departments.department_id
+    ORDER BY department_name;
 
 -- Calculate the total salary for each department, including departments with no employees.
+    SELECT department_name, COALESCE(ROUND(SUM(salary),2),0) FROM employees
+    RIGHT JOIN departments
+    ON employees.department_id=departments.department_id
+    GROUP BY department_name;
 
 -- Display all departments located in Delhi or Hyderabad, including departments without employees.
-
+    SELECT department_name, emp_name, city FROM employees
+    RIGHT JOIN departments
+    ON employees.department_id=departments.department_id
+    WHERE city in('Delhi','Hyderabad');
 
 
 -- Mixed JOIN Challenges
 
+
 -- Find departments that have at least two employees.
+    SELECT department_name ,COUNT(emp_name) FROM employees
+    RIGHT JOIN departments
+    ON employees.department_id=departments.department_id
+    GROUP BY department_name
+    HAVING COUNT(emp_name) >= 2;
 
 -- Find the highest salary in each department, including departments with no employees.
+    SELECT department_name, MAX(salary)  FROM employees
+    RIGHT JOIN departments
+    ON employees.department_id=departments.department_id
+    GROUP BY department_name
+    ORDER BY MAX(salary) DESC;
+    
+    
 
 -- Display all employees with their department names and cities. If department details are missing, display Not Assigned for the department and Unknown for the city.
+    SELECT emp_name, COALESCE(department_name,'Not Assigned for the department'), COALESCE(city, 'Unknown') FROM employees
+    LEFT JOIN departments
+    ON employees.department_id=departments.department_id;
 
 
 
