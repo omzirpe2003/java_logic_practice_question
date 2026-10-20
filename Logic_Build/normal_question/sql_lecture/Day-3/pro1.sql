@@ -49,11 +49,14 @@
 
 -- 11. Find employees whose salary is between 50000 and 90000 (inclusive).
 -- Expected: 15 row(s)
-    SELECT emp_name, salary ,FROM employees WHERE salary BETWEEN '50000' AND '90000';
+    SELECT emp_name, salary 
+    FROM employees 
+    WHERE salary BETWEEN '50000' AND '90000';
 
 -- 12. Find employees whose experience_years is NOT between 2 and 8.
 -- Expected: 16 row(s)
-    SELECT emp_name FROM employees WHERE experience_years NOT BETWEEN '2' AND '8';
+    SELECT emp_name 
+    FROM employees WHERE experience_years NOT BETWEEN 2 AND 8;
 
 -- 13. Find employees whose name starts with 'S'.
 -- Expected: 5 row(s)
@@ -77,10 +80,13 @@
 
 -- 18. Find employees who joined on or after 2021-01-01.
 -- Expected: 18 row(s)
-
+    SELECT *
+    FROM employees
+    WHERE joining_date >= '2021-01-01';
 -- 19. Find Engineering employees with salary above 80000 and performance_rating of 4 or more.
 -- Expected: 6 row(s)
-
+    SELECT emp_name from employees 
+    WHERE department = 'Engineering' AND salary >80000 AND performance_rating >=4 ;
 
 -- Section C: NULL, ORDER BY, LIMIT and OFFSET
 -- 20. Find employees who have no bonus (bonus is NULL).
@@ -118,7 +124,7 @@
 
 -- 27. Show the 5 most recent joiners (name and joining_date).
 -- Expected: 5 row(s)
-    SELECT emp_name, joining_date from employees ORDER BY joining_date ASC LIMIT 5;
+    SELECT emp_name, joining_date from employees ORDER BY joining_date DESC LIMIT 5;
 
 -- 28. Pagination: page size 5, show page 3 of employees sorted by salary highest first.
 -- Expected: 5 row(s)
@@ -168,8 +174,9 @@
 -- Expected: 40 row(s)
     SELECT 
         emp_name,
-        ROUND((salary / 30),2) 
-    FROM employees;
+        ROUND((salary / 30),2) as salary_per_day
+    FROM employees
+    ORDER BY salary_per_day DESC;
 
 -- Section E: Aggregates, GROUP BY, HAVING
 -- 35. How many employees are there in total?
@@ -194,7 +201,7 @@
 
 -- 39. Show the number of employees per department, highest first.
 -- Expected: 6 row(s)
-    SELECT COUNT(department) as total_dep_num FROM employees ORDER BY total_dep_num DESC;
+    SELECT COUNT(department),department as total_dep_num FROM employees GROUP BY department ORDER BY total_dep_num DESC;
     SELECT count(*) as total_emp, department FROM employees GROUP BY department ORDER BY total_emp DESC;
 
 -- 40. Show the average salary per department, rounded to 2 decimals, highest first.
@@ -209,7 +216,7 @@
 -- 41. Show the total payroll per city, highest first.
 -- Expected: 5 row(s)
     SELECT 
-        COUNT(salary) as payroll, 
+        SUM(salary) as payroll, 
         city 
         FROM employees
         GROUP BY city
@@ -219,7 +226,11 @@
 -- 42. Show the headcount for every department + city combination, sorted by department then headcount (high to
 -- low).
 -- Expected: 26 row(s)
-    SELECT COUNT(*) as headcount,department, city FROM employees GROUP BY department,city ORDER BY department ASC, city DESC;
+    SELECT 
+    COUNT(*) as headcount,department, city 
+    FROM employees 
+    GROUP BY department,city 
+    ORDER BY department ASC, headcount DESC;
 
 -- 43. Show departments that have MORE than 5 employees.
 -- Expected: 4 row(s)
