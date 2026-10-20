@@ -65,6 +65,7 @@
 -- Expected: 18 row(s)
 -- 19. Find Engineering employees with salary above 80000 and performance_rating of 4 or more.
 -- Expected: 6 row(s)
+
 -- Section C: NULL, ORDER BY, LIMIT and OFFSET
 -- 20. Find employees who have no bonus (bonus is NULL).
 -- Expected: 9 row(s)
@@ -86,19 +87,47 @@
 -- Expected: 5 row(s)
 -- 29. Who is the single highest-paid employee in 'Pune'? (WHERE + ORDER BY + LIMIT)
 -- Expected: 1 row(s)
+
 -- Section D: Calculations and Expressions
 -- 30. Show emp_name and annual_salary (monthly salary x 12).
 -- Expected: 40 row(s)
+    SELECT 
+    emp_name,
+    salary * 12 as annual_salary 
+    FROM employees;
+
 -- 31. Show emp_name, salary and new_salary after a 10% hike, highest new_salary first.
 -- Expected: 40 row(s)
--- 32. Show emp_name and total_comp = salary + bonus. What do you see for employees with a NULL bonus, and
--- why?
+    SELECT 
+        emp_name,
+        salary * 0.10 as hike_amount,
+        salary * 1.10 as new_salary
+        FROM employees
+    ORDER BY new_salary DESC;
+
+
+-- 32. Show emp_name and total_comp = salary + bonus. What do you see for employees with a NULL bonus, and why?
 -- Expected: 40 row(s)
--- 33. Find employees whose annual salary is more than 15 lakh (1500000), without using a column alias in
--- WHERE.
+    SELECT 
+        emp_name,
+        salary+ bonus as total_comp
+        FROM employees
+        WHERE bonus IS NOT NULL;
+
+-- 33. Find employees whose annual salary is more than 15 lakh (1500000), without using a column alias in WHERE.
 -- Expected: 5 row(s)
+    SELECT 
+    emp_name,
+    (salary * 12) as annual_sal 
+    FROM employees
+    WHERE salary * 12 >1500000;
+
 -- 34. Show emp_name and salary_per_day (salary divided by 30), 2 decimals, highest first.
 -- Expected: 40 row(s)
+    SELECT 
+        emp_name,
+        ROUND((salary / 30),2) 
+    FROM employees;
 
 -- Section E: Aggregates, GROUP BY, HAVING
 -- 35. How many employees are there in total?
@@ -180,40 +209,62 @@
     MAX(salary) as max_sal,
     department 
     FROM employees
-    WHERE salary > 100000
-GROUP BY department;
-
+    GROUP BY department
+HAVING MAX(salary) > 100000;
 
 -- 47. Show the average performance_rating per department, only those above 3.5 (NULL ratings are ignored
 -- automatically).
 -- Expected: 5 row(s)
+    SELECT 
+    AVG(performance_rating),
+    department 
+    FROM employees
+    GROUP BY department
+HAVING AVG(performance_rating) > 3.5;
 
 
 -- 48. Show how many employees are remote vs on-site (GROUP BY is_remote).
 -- Expected: 2 row(s)
-
+    SELECT COUNT(*), is_remote  
+    FROM employees
+    GROUP BY is_remote;
 
 -- 49. Challenge: Excluding Support, which department has the highest total bonus paid? Return 1 row.
 -- Expected: 1 row(s)
+    SELECT 
+    SUM(bonus)as total_bonus ,department 
+    FROM employees
+    WHERE department NOT IN ('Support')
+    GROUP BY department
+    ORDER BY total_bonus  DESC
+    LIMIT 1;
 
 
--- Section F: INSERT, UPDATE, DELETE (run these in order, they change the
--- data)
+-- Section F: INSERT, UPDATE, DELETE (run these in order, they change the data)
 -- 50. Insert one new employee: name 'Ishaan Rao', email 'ishaan.rao@company.com', Engineering, 'Software
 -- Engineer', Pune, salary 70000, bonus NULL, experience 2, rating NULL, not remote, joining 2024-07-01, manager
 -- 'Rohit Mehta'.
+
 -- 51. Insert 3 employees in ONE statement, giving only emp_name, email, department, city and salary. What values
 -- do experience_years and is_remote get automatically?
+
 -- 52. Give every Support employee a 10% salary raise.
 -- 53. For the employee with emp_id = 1, change designation to 'Senior Software Engineer', salary to 90000 and set
+
 -- is_remote to TRUE (one UPDATE).
 -- 54. Give a flat 2000 bonus to every employee who currently has no bonus (bonus IS NULL).
+
 -- 55. Delete all employees whose performance_rating is 1. Preview with SELECT first.
 -- Section G: Tables, Constraints and ALTER (DDL)
+
 -- 56. Create a new table called dept_budget with: dept_id (auto-increment primary key), dept_name (text up to 30,
 -- unique, not null), budget_lakhs (NUMERIC(8,2), must be greater than 0), head_name (text up to 50, can be
 -- NULL), created_on (DATE, defaults to today).
+
 -- 57. Add a new column phone_number CHAR(10) with a UNIQUE constraint to the employees table.
+
 -- 58. Add a CHECK constraint named chk_experience to employees so experience_years can never be negative.
+
 -- 59. Now try to run an UPDATE that sets experience_years = -1 for emp_id 2. What happens and why?
+
 -- 60. Drop the chk_experience constraint again
