@@ -4,10 +4,10 @@
             "ssh": "Disabled",
             "previewLimit": 50,
             "server": "localhost",
-            "port": 5432,
+            "port": 5433,
             "driver": "PostgreSQL",
-            "name": "postgress_conn",
-            "database": "sql_class_1_db",
+            "name": "Practice",
+            "database": "practice",
             "username": "OMZIRPE",
             "password": "postgres"
         }

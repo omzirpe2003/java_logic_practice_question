@@ -60,11 +60,11 @@ class SimpleTocken:
 
         preprocessed = re.split(r'([,.:;?!()\[\]{}\'"@#$/\\-]|\s+)',text)
 
-        preprocessed = [item.strip() for item in preprocessed if item.strip()]
+        preprocessed = [item.strip() for item in preprocessed if item.strip()]     # remove wight space 
 
-        preprocessed = [item if item in self.str_to_int else "<|unk|>" for item in preprocessed ]
+        preprocessed = [item if item in self.str_to_int else "<|unk|>" for item in preprocessed ]   
 
-        ids = [self.str_to_int[s] for s in preprocessed]
+        ids = [self.str_to_int[s] for s in preprocessed]     # str_to_int word shod in that preprocess/ s word ====> id return karto
 
         return ids
     
