@@ -49,44 +49,86 @@
 
 -- 11. Find employees whose salary is between 50000 and 90000 (inclusive).
 -- Expected: 15 row(s)
+    SELECT emp_name, salary ,FROM employees WHERE salary BETWEEN '50000' AND '90000';
+
 -- 12. Find employees whose experience_years is NOT between 2 and 8.
 -- Expected: 16 row(s)
+    SELECT emp_name FROM employees WHERE experience_years NOT BETWEEN '2' AND '8';
+
 -- 13. Find employees whose name starts with 'S'.
 -- Expected: 5 row(s)
+    SELECT emp_name FROM employees WHERE emp_name LIKE 'S%';
+
 -- 14. Find employees whose name has 'an' anywhere in it.
 -- Expected: 12 row(s)
+    SELECT emp_name FROM employees WHERE emp_name LIKE '%an%';
+
 -- 15. Find employees whose name has 'a' as the second letter.
 -- Expected: 14 row(s)
+    SELECT emp_name FROM employees WHERE emp_name LIKE '_a%';
+
 -- 16. Find all remote employees (is_remote is true).
 -- Expected: 10 row(s)
+    SELECT emp_name FROM employees WHERE is_remote =TRUE;
+
 -- 17. Find remote employees from either Engineering OR Support (watch the parentheses).
 -- Expected: 6 row(s)
+    SELECT emp_name , department FROM employees WHERE is_remote=true AND department IN('Engineering','Support')
+
 -- 18. Find employees who joined on or after 2021-01-01.
 -- Expected: 18 row(s)
+
 -- 19. Find Engineering employees with salary above 80000 and performance_rating of 4 or more.
 -- Expected: 6 row(s)
+
 
 -- Section C: NULL, ORDER BY, LIMIT and OFFSET
 -- 20. Find employees who have no bonus (bonus is NULL).
 -- Expected: 9 row(s)
+    SELECT * FROM employees WHERE bonus IS NULL;
+
 -- 21. Find employees who have a bonus (not NULL) and work in Mumbai.
 -- Expected: 7 row(s)
+    SELECT * FROM employees WHERE bonus IS NOT NULL AND city = 'Mumbai';
+
 -- 22. Find employees who have not been reviewed yet (performance_rating is NULL).
 -- Expected: 4 row(s)
+    SELECT * FROM employees WHERE performance_rating IS NULL;
+
 -- 23. Find the top-level managers (manager_name is NULL).
 -- Expected: 6 row(s)
+    SELECT * FROM employees WHERE manager_name IS NULL;
+
+
 -- 24. Show emp_name and salary, highest salary first.
 -- Expected: 40 row(s)
+    SELECT emp_name, salary FROM employees ORDER BY salary DESC;
+
 -- 25. Sort by department A-Z, then by salary highest first inside each department.
 -- Expected: 40 row(s)
+    SELECT department, salary FROM employees ORDER BY department ASC, salary DESC;
+
 -- 26. Show the 5 highest-paid employees (name and salary).
 -- Expected: 5 row(s)
+    SELECT 
+    emp_name, salary 
+    FROM employees
+    ORDER BY salary DESC LIMIT 5;
+
+
 -- 27. Show the 5 most recent joiners (name and joining_date).
 -- Expected: 5 row(s)
+    SELECT emp_name, joining_date from employees ORDER BY joining_date ASC LIMIT 5;
+
 -- 28. Pagination: page size 5, show page 3 of employees sorted by salary highest first.
 -- Expected: 5 row(s)
+    SELECT * FROM employees ORDER BY salary DESC LIMIT 5 OFFSET 10;
+
+    
 -- 29. Who is the single highest-paid employee in 'Pune'? (WHERE + ORDER BY + LIMIT)
 -- Expected: 1 row(s)
+    SELECT emp_name, salary FROM employees WHERE city = 'Pune' ORDER BY salary DESC LIMIT 1;
+
 
 -- Section D: Calculations and Expressions
 -- 30. Show emp_name and annual_salary (monthly salary x 12).
